@@ -8,12 +8,25 @@ if (process.platform !== "win32") {
 }
 
 // We need to find csc.exe (C# Compiler)
-// It is usually located in C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe
-const frameworkPath = "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319";
-const cscPath = path.join(frameworkPath, "csc.exe");
+// It is usually located in C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe (x64)
+// or C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe (x86)
 
-if (!fs.existsSync(cscPath)) {
-  console.error("❌ Could not find c# compiler at: " + cscPath);
+const possiblePaths = [
+  "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe",
+  "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\csc.exe",
+];
+
+let cscPath = null;
+
+for (const p of possiblePaths) {
+  if (fs.existsSync(p)) {
+    cscPath = p;
+    break;
+  }
+}
+
+if (!cscPath) {
+  console.error("❌ Could not find c# compiler (csc.exe)");
   console.error(
     "Please ensure .NET Framework 4.x is installed (it usually is on Windows).",
   );

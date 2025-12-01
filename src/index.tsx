@@ -1,13 +1,13 @@
 import {
   Action,
   ActionPanel,
-  Detail,
   List,
   showToast,
   Toast,
   environment,
   useNavigation,
 } from "@raycast/api";
+import React from "react";
 import { useEffect, useState, useRef } from "react";
 import { spawn, ChildProcess, exec } from "child_process";
 import path from "path";
@@ -36,7 +36,9 @@ export default function Command() {
               <ActionPanel>
                 <Action.Push
                   title="Lock Keyboard"
-                  target={<CleaningView duration={item.value} icon={item.icon} />}
+                  target={
+                    <CleaningView duration={item.value} icon={item.icon} />
+                  }
                 />
               </ActionPanel>
             }
