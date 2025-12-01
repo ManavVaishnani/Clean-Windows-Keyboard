@@ -1,38 +1,33 @@
-# Clean Keyboard for Windows (Raycast Extension)
+# Clean Windows Keyboard
 
-This extension allows you to lock your keyboard for cleaning purposes, similar to the macOS version.
+Lock your keyboard for cleaning purposes. This extension is designed for **Raycast for Windows**.
 
+![Clean Windows Keyboard Icon](icon.png)
 ## Features
-- **Lock Keyboard**: Blocks all keyboard input globally.
-- **Unlock**: Press `Ctrl + U` to unlock the keyboard.
+
+- **Lock Keyboard**: Blocks all keyboard input globally to allow for cleaning.
+- **Durations**: Select from various durations (15s, 30s, 1m, etc.).
+- **Safety Unlock**: Press `Ctrl + U` at any time to immediately unlock the keyboard.
+- **Visual Timer**: See exactly how much time is left.
 
 ## Requirements
-- **Raycast for Windows** (Beta)
-- **Node.js** (for development)
-- **.NET Framework 4.x** (Pre-installed on most Windows systems)
 
-## Setup
+- **Raycast for Windows**
+- **.NET Framework 4.x** (Standard on most Windows installations)
 
-1.  **Install Dependencies**:
-    ```bash
-    npm install
-    ```
+## How it Works
 
-2.  **Compile the Helper**:
-    The extension uses a small C# utility to handle the low-level keyboard hooking. You need to compile it once.
-    ```bash
-    node src/native/compile.js
-    ```
-    *Note: This script uses the C# compiler (`csc.exe`) found in your Windows installation.*
+This extension uses a lightweight C# helper executable (`KeyboardBlocker.exe`) to interface with the Windows API (`SetWindowsHookEx`).
+- The helper is compiled locally on your machine during installation using the standard Windows C# compiler (`csc.exe`).
+- Source code for the helper is available in `src/native/KeyboardBlocker.cs`.
 
-3.  **Run the Extension**:
-    ```bash
-    npm run dev
-    ```
-    This will open Raycast and load the extension.
+## Troubleshooting
 
-## How it works
-- The React UI spawns a background process (`assets/KeyboardBlocker.exe`).
-- This process installs a low-level keyboard hook (`WH_KEYBOARD_LL`).
-- It swallows all key events, effectively locking the keyboard.
-- It listens for `Ctrl + U`. When detected, it exits the process, restoring keyboard input.
+**Keyboard didn't unlock?**
+- Press `Ctrl + U`.
+- If that fails, you can use your mouse to click "Unlock Now" in the Raycast window.
+- In the worst case, you can close Raycast or use Task Manager to kill `KeyboardBlocker.exe`.
+
+## License
+
+MIT
