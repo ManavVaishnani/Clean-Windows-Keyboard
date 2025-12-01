@@ -20,7 +20,7 @@
   "commands": [
     {
       "name": "index",
-      "title": "Clean Windows Keyboard",
+      "title": "Lock Windows Keyboard",
       "description": "Lock the keyboard to clean it.",
       "mode": "view",
       "keywords": [
